@@ -11,11 +11,13 @@ class ProductRepository implements IProductRepository {
         $this->databaseConnection = $this->database->getConnection();
     }
 
-    public function GetAllProduct() 
-    {
-        $query = "SELECT Product.ProductId,     
-                    Product.ProductName 
-                    FROM Product";
+    public function GetAllProduct() {
+        $query = "SELECT Product.ProductId,
+                    Product.ProductName,
+                    ProductDetails.ProductDate
+                FROM Product
+                LEFT JOIN ProductDetails ON Product.ProductId = ProductDetails.ProductId";
+    
         return $this->ExecuteSqlQuery($query, []);
     }
 
